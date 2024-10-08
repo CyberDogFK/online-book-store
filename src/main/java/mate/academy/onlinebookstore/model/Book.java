@@ -1,12 +1,15 @@
 package mate.academy.onlinebookstore.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -15,19 +18,19 @@ import java.math.BigDecimal;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
     @Column(nullable = false)
     @NonNull
-    public String title;
+    private String title;
     @Column(nullable = false)
     @NonNull
-    public String author;
+    private String author;
     @Column(nullable = false, unique = true)
     @NonNull
-    public String isbn;
+    private String isbn;
     @Column(nullable = false)
     @NonNull
-    public BigDecimal price;
-    public String description;
-    public String coverImage;
+    private BigDecimal price;
+    private String description;
+    private String coverImage;
 }
