@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Entity
@@ -20,17 +19,22 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @NonNull
     private String title;
     @Column(nullable = false)
-    @NonNull
     private String author;
     @Column(nullable = false, unique = true)
-    @NonNull
     private String isbn;
     @Column(nullable = false)
-    @NonNull
     private BigDecimal price;
     private String description;
     private String coverImage;
+
+    public static Book of(String title, String author, String isbn, BigDecimal price) {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setIsbn(isbn);
+        book.setPrice(price);
+        return book;
+    }
 }
