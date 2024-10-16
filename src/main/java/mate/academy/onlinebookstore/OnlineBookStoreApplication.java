@@ -1,6 +1,8 @@
 package mate.academy.onlinebookstore;
 
 import java.math.BigDecimal;
+
+import mate.academy.onlinebookstore.mapper.BookMapper;
 import mate.academy.onlinebookstore.model.Book;
 import mate.academy.onlinebookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +26,5 @@ public class OnlineBookStoreApplication {
 
     @Bean
     public CommandLineRunner commandLineRunner() {
-        return args -> {
-            Book book = Book.of(
-                    "Harry Potter",
-                    "J.K. Rowling",
-                    "y",
-                    BigDecimal.ONE
-            );
-
-            bookService.save(book);
-
-            bookService.findAll();
-        };
     }
 }
