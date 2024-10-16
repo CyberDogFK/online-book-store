@@ -8,11 +8,9 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@RequiredArgsConstructor(staticName = "of")
 @NoArgsConstructor
 public class Book {
     @Id
