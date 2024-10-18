@@ -1,6 +1,7 @@
 package mate.academy.onlinebookstore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mate.academy.onlinebookstore.dto.BookDto;
 import mate.academy.onlinebookstore.dto.CreateBookRequestDto;
@@ -28,5 +29,11 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll().stream()
                 .map(bookMapper::toDto)
                 .toList();
+    }
+
+    @Override
+    public Optional<BookDto> findById(Long id) {
+        return bookRepository.findById(id)
+                .map(bookMapper::toDto);
     }
 }
