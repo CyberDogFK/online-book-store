@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "books")
 @Data
 @NoArgsConstructor
 public class Book {
