@@ -45,7 +45,7 @@ databaseChangeLog:
               - column:
                   name: cover_image
                   value: 'http://example.com/cover2.jpg'
-                  
+
 #  // {
 #//   "title": "Sample Book 3",
 #//   "author": "Author C",
