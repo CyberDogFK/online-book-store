@@ -45,14 +45,24 @@ databaseChangeLog:
               - column:
                   name: cover_image
                   value: 'http://example.com/cover2.jpg'
-
-#  // {
-#//   "title": "Sample Book 3",
-#//   "author": "Author C",
-#//   "isbn": "9781122334455",
-#//   "price": 29.99,
-#//   "description": "Yet another sample book description.",
-#//   "coverImage": "http://example.com/cover3.jpg"
-#  // }
-
-
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: 'Sample Book 3'
+              - column:
+                  name: author
+                  value: 'Author C'
+              - column:
+                  name: isbn
+                  value: '9781122334455'
+              - column:
+                  name: price
+                  value: 29.99
+              - column:
+                  name: description
+                  value: 'Yet another sample book description.'
+              - column:
+                  name: cover_image
+                  value: 'http://example.com/cover3.jpg'
