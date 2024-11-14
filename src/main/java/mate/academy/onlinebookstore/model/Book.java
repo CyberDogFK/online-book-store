@@ -8,10 +8,14 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity(name = "books")
 @Data
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE books SET is_deleted = true WHERE id=?")
+@SQLRestriction("is_deleted = false")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +30,6 @@ public class Book {
     private BigDecimal price;
     private String description;
     private String coverImage;
-
-    public static Book of(String title, String author, String isbn, BigDecimal price) {
-        Book book = new Book();
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setIsbn(isbn);
-        book.setPrice(price);
-        return book;
-    }
+    @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
+    private boolean isDeleted = false;
 }
