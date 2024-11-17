@@ -1,6 +1,5 @@
 package mate.academy.onlinebookstore.repository.book;
 
-import jakarta.persistence.criteria.Predicate;
 import mate.academy.onlinebookstore.model.Book;
 import mate.academy.onlinebookstore.repository.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,10 +16,6 @@ public class AuthorSpecificationProvider implements SpecificationProvider<Book> 
 
     @Override
     public Specification<Book> getSpecification(String param) {
-        return (root, query, criteriaBuilder) -> {
-            Predicate cb = criteriaBuilder.like(root.get(KEY), "% %".replace(" ", param));
-            // return root.get(KEY).in(param);
-            return cb;
-        };
+        return (root, query, criteriaBuilder) -> root.get(KEY).in(param);
     }
 }
