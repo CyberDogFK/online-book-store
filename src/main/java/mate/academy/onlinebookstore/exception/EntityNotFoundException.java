@@ -1,4 +1,4 @@
-package mate.academy.onlinebookstore.lib;
+package mate.academy.onlinebookstore.exception;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {
