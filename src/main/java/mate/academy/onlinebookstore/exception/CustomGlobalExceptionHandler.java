@@ -22,7 +22,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpHeaders headers,
             HttpStatusCode status,
             WebRequest request) {
-        var errors = ex.getBindingResult().getAllErrors().stream()
+        List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getValidatorErrorMessage)
                 .toList();
         return ResponseEntity.status(status)
