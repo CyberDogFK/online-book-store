@@ -9,4 +9,7 @@ public record CustomErrorResponse(
         LocalDateTime timestamp,
         HttpStatusCode status
 ) {
+    public static CustomErrorResponse of(List<String> errors, HttpStatusCode status) {
+        return new CustomErrorResponse(errors, LocalDateTime.now(), status);
+    }
 }

@@ -1,6 +1,5 @@
 package mate.academy.onlinebookstore.exception;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,9 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         var errors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getValidatorErrorMessage)
                 .toList();
-        return new ResponseEntity<>(
-                new CustomErrorResponse(errors, LocalDateTime.now(), status), status);
+        return ResponseEntity.status(status)
+                .headers(headers)
+                .body(CustomErrorResponse.of(errors, status));
     }
 
     @Override
@@ -36,26 +36,23 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpHeaders headers,
             HttpStatusCode status,
             WebRequest request) {
-        return new ResponseEntity<>(
-                new CustomErrorResponse(List.of(ex.getMessage()), LocalDateTime.now(), status),
-                headers,
-                status);
+        return ResponseEntity.status(status)
+                .headers(headers)
+                .body(CustomErrorResponse.of(List.of(ex.getMessage()), status));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundExceptions(EntityNotFoundException ex) {
-        var status = HttpStatus.NOT_FOUND;
-        return new ResponseEntity<>(
-                new CustomErrorResponse(List.of(ex.getMessage()), LocalDateTime.now(), status),
-                status);
+        HttpStatusCode status = HttpStatus.NOT_FOUND;
+        return ResponseEntity.status(status)
+                .body(CustomErrorResponse.of(List.of(ex.getMessage()), status));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllExceptions(Exception ex) {
-        var status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(
-                new CustomErrorResponse(List.of(ex.getMessage()), LocalDateTime.now(), status),
-                status);
+        HttpStatusCode status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return ResponseEntity.status(status)
+                .body(CustomErrorResponse.of(List.of(ex.getMessage()), status));
     }
 
     private String getValidatorErrorMessage(ObjectError e) {
@@ -65,16 +62,5 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return field + ": " + message;
         }
         return e.getDefaultMessage();
-    }
-
-    private List<String> getCauseErrorMessages(Throwable ex) {
-        List<Throwable> errors = List.of(ex);
-        Throwable err = ex.getCause();
-        while (err != null) {
-            err = err.getCause();
-        }
-        return errors.stream()
-                .map(Throwable::getMessage)
-                .toList();
     }
 }
